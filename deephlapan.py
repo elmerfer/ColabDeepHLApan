@@ -14,6 +14,7 @@ import subprocess
 import shutil
 os.environ['PYTHONPATH'] += "/env/python:/content/deephlapan/:/content/deephlapan/deephlapan"
 sys.path.insert(2, 'deephlapan')
+os.makedirs("input", exist_ok=True)
 
 def install():
   os.system("pip uninstall -y tensorflow tensorflow-estimator keras")
