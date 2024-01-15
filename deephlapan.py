@@ -103,4 +103,6 @@ def run(filedir=None, convert=True):
       print(f"Downloaded on your local computer. Name: \"{output}_DHL_results.csv\"")
   except:
       print("It seems the result was not created. Adjunting logs")
+      print(result)
+      raise Exception("The process has failed.")
   return result
