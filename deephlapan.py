@@ -91,9 +91,12 @@ def run(filedir=None, convert=True):
   try:
       dfresult = pd.read_csv(f"outputs/{output}_predicted_result.csv")
       print("Success! Downloading your CSV shortly...")
-      dfresultrank = pd.read_csv(f"outputs/{output}_predicted_result_rank.csv") #extra file for results with imm score > 0.5
-      df_fullresult = pd.merge(dfresult,dfresultrank,how='left')
-      dfconcat = pd.concat([pd.read_csv(filedir), df_fullresult.iloc[:, 3:]], axis="columns")
+      try:
+          dfresultrank = pd.read_csv(f"outputs/{output}_predicted_result_rank.csv") #extra file for results with imm score > 0.5
+          df_fullresult = pd.merge(dfresult,dfresultrank,how='left')
+          dfconcat = pd.concat([pd.read_csv(filedir), df_fullresult.iloc[:, 3:]], axis="columns")
+      except:
+          dfconcat = pd.concat([pd.read_csv(filedir), dfresult.iloc[:, 3:]], axis="columns")
       with open(f"{output}_DHL_results.csv", 'w') as outfile:
           outfile.write(dfconcat.to_csv())
           outfile.close()
